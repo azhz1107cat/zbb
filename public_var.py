@@ -23,6 +23,8 @@ zbb_var_dic = { "temp_shell_para" : '',
                 "temp_all": Stack()
                 }
 
+zbb_mark_dic = {}
+
 """
 初始化了临时存储器
 - 临时存储器 tsp 用于在shell中传递参数
@@ -32,4 +34,5 @@ zbb_var_dic = { "temp_shell_para" : '',
 - 临时存储器 ta 是通用寄存器
 """
 code_text_to_list = []
+line_num = 0
 isJUMP = False

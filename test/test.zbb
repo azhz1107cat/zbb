@@ -1,5 +1,11 @@
-MOVE `nothing` , temp_shell_para
+MOVE `a` , temp_shell_para
 USE echo
 // 我是注释
-MOVE `hello` , temp_shell_para
+JUMP next
+
+MOVE `b` , temp_shell_para
+USE echo
+
+:: next
+MOVE `c` , temp_shell_para
 USE echo

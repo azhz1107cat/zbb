@@ -8,17 +8,32 @@ if __name__ == "__main__":
         print("==running==\n")
         start_time = time.time()
         code_text_to_list = code_text.split('\n')
-        line_num = 1
+        # 标签寻找
+        for each_line in code_text_to_list:
+            if each_line.startswith("::"):
+                label = each_line.replace("::", "").replace(" ", "")
+                zbb_mark_dic[label] = line_num
+            line_num += 1
+
+        line_num = 0
         # 阅读每一行zbb
-        for each_line_of_code in code_text_to_list:
-            if isJUMP or each_line_of_code == '' or each_line_of_code.startswith("//"):
+        while True:
+            if line_num < len(code_text_to_list):
+                each_line_of_code = code_text_to_list[line_num]
+            else: break
+
+            if each_line_of_code == '' or each_line_of_code.startswith("//"):
+                line_num += 1
                 continue
             try:
                 run_a_line_of_zbb(each_line_of_code)
             except (RuntimeError,TypeError,KeyError) as e:
-                print(f"{e}\n in line {line_num}\n")
+                print(f"{e}\n in line {line_num+1}\n")
                 break
             line_num += 1
+            if (line_num-1) == len(code_text_to_list):
+                break
+
         end_time = time.time()
         print(f"\n==finished runtime:{ end_time - start_time }==")
         '''input_to_exit = input("Type ENTER to exit")

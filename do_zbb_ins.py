@@ -1,6 +1,7 @@
 import os
 import time
-from public_var import *
+from public_var import zbb_var_dic , zbb_mark_dic, code_text_to_list , line_num , isJUMP
+
 
 def do_use(system_ins_name:str):
     # 使用系统指令
@@ -61,37 +62,44 @@ def do_move(data1:str,var_name:str):
     else:
         zbb_var_dic[var_name] = zbb_var_dic[data1]
 
+
+def do_call(func_name:str):
+    # 调用函数
+    pass
+
+
 def do_func(func_name:str):
     # 定义函数
     pass
 
 
-def do_jump(line_num:int):
+def do_jump(label:str):
     # 无条件跳转
-    isJUMP = True
+    global line_num
+    line_num = zbb_mark_dic[label]
 
-def do_je(line_num:int,var_name1:str,var_name2:str):
+def do_je(label:str,var_name1:str,var_name2:str):
     # 等于跳转
     var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
     var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
     isJUMP = True if var_name1 == var_name2 else None
 
 
-def do_jl(line_num:int,var_name1:str,var_name2:str):
+def do_jl(label:str,var_name1:str,var_name2:str):
     # 小于跳转
     var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
     var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
     isJUMP = True if var_name1 <= var_name2 else None
 
 
-def do_jg(line_num:int,var_name1:str,var_name2:str):
+def do_jg(label:str,var_name1:str,var_name2:str):
     # 大于跳转
     var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
     var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
     isJUMP = True if var_name1 >= var_name2 else None
 
 
-def do_jne(line_num:int,var_name1:str,var_name2:str):
+def do_jne(label:str,var_name1:str,var_name2:str):
     # 不等于跳转
     var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
     var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
@@ -104,11 +112,6 @@ def do_exit(x):
 
 def do_nop(x):
     # 无作用
-    pass
-
-
-def do_call(func_name:str):
-    # 调用函数
     pass
 
 
@@ -126,7 +129,6 @@ def do_push(stack_name:str, *stack_content):
 def do_pop(stack_name:str):
     # 取栈顶值
     on_top_stack = zbb_var_dic[stack_name].pop()
-
 
 '''
 关键字表
@@ -153,7 +155,8 @@ zbb_keywords = {
     "CLEAN": do_clean,
     "PUSH": do_push,
     "POP": do_pop,
-    "NOP": do_nop
+    "NOP": do_nop,
+    "::": do_nop
 }
 
 '''
