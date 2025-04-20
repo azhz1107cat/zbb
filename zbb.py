@@ -1,8 +1,7 @@
-import time
 from do_zbb_ins import *
 
 if __name__ == "__main__":
-    with open('test.zbb', 'r', encoding='utf-8') as f:
+    with open('test/test.zbb', 'r', encoding='utf-8') as f:
 
         code_text = f.read()
         os.system('chcp 65001')

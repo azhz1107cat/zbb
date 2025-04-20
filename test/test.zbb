@@ -1,6 +1,5 @@
 MOVE `nothing` , temp_shell_para
 USE echo
 // 我是注释
-
 MOVE `hello` , temp_shell_para
 USE echo

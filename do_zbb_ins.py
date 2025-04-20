@@ -1,4 +1,5 @@
 import os
+import time
 from public_var import *
 
 def do_use(system_ins_name:str):
@@ -71,26 +72,39 @@ def do_jump(line_num:int):
 
 def do_je(line_num:int,var_name1:str,var_name2:str):
     # 等于跳转
-    pass
+    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
+    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
+    isJUMP = True if var_name1 == var_name2 else None
 
 
 def do_jl(line_num:int,var_name1:str,var_name2:str):
     # 小于跳转
-    pass
+    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
+    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
+    isJUMP = True if var_name1 <= var_name2 else None
 
 
 def do_jg(line_num:int,var_name1:str,var_name2:str):
     # 大于跳转
-    pass
+    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
+    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
+    isJUMP = True if var_name1 >= var_name2 else None
 
 
 def do_jne(line_num:int,var_name1:str,var_name2:str):
     # 不等于跳转
-    pass
+    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
+    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
+    isJUMP = True if var_name1 != var_name2 else None
 
 
-def do_exit():
+def do_exit(x):
     exit()
+
+
+def do_nop(x):
+    # 无作用
+    pass
 
 
 def do_call(func_name:str):
@@ -100,22 +114,19 @@ def do_call(func_name:str):
 
 def do_clean(stack_name:str):
     # 清空栈
-    pass
+    zbb_var_dic[stack_name].clear()
 
 
-def do_push(stack_name:str):
+def do_push(stack_name:str, *stack_content):
     # 推至栈顶
-    pass
+    for item in stack_content:
+        zbb_var_dic[stack_name].push(item)
 
 
 def do_pop(stack_name:str):
     # 取栈顶值
-    pass
+    on_top_stack = zbb_var_dic[stack_name].pop()
 
-
-def do_nop():
-    # 无作用
-    pass
 
 '''
 关键字表
