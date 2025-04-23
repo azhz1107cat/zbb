@@ -31,7 +31,9 @@ if __name__ == "__main__":
             except (RuntimeError,TypeError,KeyError) as e:
                 print(f"{e}\n { code_text_to_list[line_num] } \n {'^' * len( code_text_to_list[line_num] ) } \n in line {line_num+1}\n")
                 break
+
             line_num += 1
+
             if (line_num-1) == len(code_text_to_list):
                 break
 
