@@ -26,9 +26,10 @@ if __name__ == "__main__":
                 line_num += 1
                 continue
             try:
-                run_a_line_of_zbb(each_line_of_code)
+                change_line_num = run_a_line_of_zbb(each_line_of_code)
+                line_num = change_line_num if change_line_num is not None else line_num
             except (RuntimeError,TypeError,KeyError) as e:
-                print(f"{e}\n in line {line_num+1}\n")
+                print(f"{e}\n { code_text_to_list[line_num] } \n {'^' * len( code_text_to_list[line_num] ) } \n in line {line_num+1}\n")
                 break
             line_num += 1
             if (line_num-1) == len(code_text_to_list):

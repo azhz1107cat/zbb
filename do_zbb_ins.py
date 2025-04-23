@@ -75,8 +75,7 @@ def do_func(func_name:str):
 
 def do_jump(label:str):
     # 无条件跳转
-    global line_num
-    line_num = zbb_mark_dic[label]
+    return zbb_mark_dic[label]
 
 def do_je(label:str,var_name1:str,var_name2:str):
     # 等于跳转
@@ -163,10 +162,6 @@ zbb_keywords = {
 主要部分如下
 '''
 
-def zbb_do(keyword:str , para:list ):
-    func = zbb_keywords[keyword]
-    func(*para)
-
 def run_a_line_of_zbb( a_line_of_zbb:str ):
     this_keyword = ''
     for keyword in zbb_keywords:
@@ -174,7 +169,11 @@ def run_a_line_of_zbb( a_line_of_zbb:str ):
             this_keyword = keyword
             break
     else:
-        raise RuntimeError(f"Grammar error when parsing \n {a_line_of_zbb} \n {'^' * len(a_line_of_zbb)}")
+        raise RuntimeError(f"Grammar error when parsing\n")
 
     this_para = a_line_of_zbb.replace(this_keyword, '').replace(" ",'').split(",")
-    zbb_do(this_keyword,this_para)
+
+    func = zbb_keywords[keyword]
+    for_ret = func(*this_para)
+
+    return for_ret

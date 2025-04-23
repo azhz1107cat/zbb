@@ -17,6 +17,7 @@ class Stack:
 
 
 zbb_var_dic = { "temp_shell_para" : '',
+                "temp_get_ret" : '',
                 "temp_calc" : '0' ,
                 "temp_para": Stack(),
                 "temp_ret": Stack(),
