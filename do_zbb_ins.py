@@ -20,47 +20,40 @@ def do_del(var_name:str):
 
 def do_add(first_num:str,second_num:str):
     # 加法运算
-    first_num = int(first_num) if first_num.isdigit() else int(zbb_var_dic[first_num])
-    second_num = int(second_num) if second_num.isdigit() else int(zbb_var_dic[second_num])
+    first_num = zbb_data(first_num)
+    second_num = zbb_data(second_num)
     zbb_var_dic['temp_calc'] = str(first_num + second_num)
 
 
 def do_sub(first_num:str,second_num:str):
     # 减法运算
-    first_num = int(first_num) if first_num.isdigit() else int(zbb_var_dic[first_num])
-    second_num = int(second_num) if second_num.isdigit() else int(zbb_var_dic[second_num])
+    first_num = zbb_data(first_num)
+    second_num = zbb_data(second_num)
     zbb_var_dic['temp_calc'] = str(first_num - second_num)
 
 
 def do_mult(first_num:str,second_num:str):
     # 乘法运算
-    first_num = int(first_num) if first_num.isdigit() else int(zbb_var_dic[first_num])
-    second_num = int(second_num) if second_num.isdigit() else int(zbb_var_dic[second_num])
+    first_num = zbb_data(first_num)
+    second_num = zbb_data(second_num)
     zbb_var_dic['temp_calc'] = str(first_num * second_num)
 
 
 def do_div(first_num:str,second_num:str):
     # 除法运算
-    first_num = int(first_num) if first_num.isdigit() else int(zbb_var_dic[first_num])
-    second_num = int(second_num) if second_num.isdigit() else int(zbb_var_dic[second_num])
+    first_num = zbb_data(first_num)
+    second_num = zbb_data(second_num)
     zbb_var_dic['temp_calc'] = str(first_num / second_num)
 
 
 def do_opp(num1:str):
     # 取反运算
-    zbb_var_dic['temp_calc'] = -int(num1) if num1.isdigit() else -int(zbb_var_dic[num1])
+    zbb_var_dic['temp_calc'] = - zbb_data(num1)
 
 
 def do_move(data1:str,var_name:str):
     # 将数据移入变量
-    if data1.isdigit() :
-        zbb_var_dic[var_name] = data1
-
-    elif data1.startswith("`") and data1.endswith("`"):
-        zbb_var_dic[var_name] = data1.replace("`",'')
-
-    else:
-        zbb_var_dic[var_name] = zbb_var_dic[data1]
+    zbb_var_dic[var_name] = zbb_data(data1)
 
 
 def do_call(func_name:str):
@@ -77,32 +70,51 @@ def do_jump(label:str):
     # 无条件跳转
     return zbb_mark_dic[label]
 
-def do_je(label:str,var_name1:str,var_name2:str):
+def do_je(label:str,var_name1:str,var_name2:str,else_label:str):
     # 等于跳转
-    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
-    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
-    isJUMP = True if var_name1 == var_name2 else None
+    if zbb_data(var_name1) == zbb_data(var_name2):
+        return zbb_mark_dic[label]
+    else:
+        return zbb_mark_dic[else_label]
 
 
-def do_jl(label:str,var_name1:str,var_name2:str):
+def do_jl(label:str,var_name1:str,var_name2:str,else_label:str):
     # 小于跳转
-    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
-    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
-    isJUMP = True if var_name1 <= var_name2 else None
+    try:
+        if zbb_data(var_name1) < zbb_data(var_name2):
+            return zbb_mark_dic[label]
+        else:
+            return zbb_mark_dic[else_label]
+    except KeyError as e:
+        raise RuntimeError(f"{e} : Mark not found")
+    except TypeError as e:
+        raise RuntimeError(f"{e} : Compare error")
 
 
-def do_jg(label:str,var_name1:str,var_name2:str):
+def do_jg(label:str,var_name1:str,var_name2:str,else_label:str):
     # 大于跳转
-    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
-    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
-    isJUMP = True if var_name1 >= var_name2 else None
+    try:
+        if zbb_data(var_name1) > zbb_data(var_name2):
+            return zbb_mark_dic[label]
+        else:
+            return zbb_mark_dic[else_label]
+    except KeyError as e:
+        raise RuntimeError(f"{e} : Mark not found")
+    except TypeError as e:
+        raise RuntimeError(f"{e} : Compare error")
 
 
-def do_jne(label:str,var_name1:str,var_name2:str):
+def do_jne(label:str,var_name1:str,var_name2:str,else_label:str):
     # 不等于跳转
-    var_name1 = int(var_name1) if var_name1.isdigit() else int(zbb_var_dic[var_name1])
-    var_name2 = int(var_name2) if var_name2.isdigit() else int(zbb_var_dic[var_name2])
-    isJUMP = True if var_name1 != var_name2 else None
+    try:
+        if zbb_data(var_name1) != zbb_data(var_name2):
+            return zbb_mark_dic[label]
+        else:
+            return zbb_mark_dic[else_label]
+    except KeyError as e:
+        raise RuntimeError(f"{e} : Mark not found")
+    except TypeError as e:
+        raise RuntimeError(f"{e} : Compare error")
 
 
 def do_exit(x):
@@ -128,6 +140,7 @@ def do_push(stack_name:str, *stack_content):
 def do_pop(stack_name:str):
     # 取栈顶值
     on_top_stack = zbb_var_dic[stack_name].pop()
+    zbb_var_dic["temp_get_ret"] = on_top_stack
 
 '''
 关键字表
@@ -161,11 +174,25 @@ zbb_keywords = {
 '''
 主要部分如下
 '''
+def zbb_data(zbb_var_name:str):
+    if zbb_var_name in zbb_var_dic:
+        return zbb_var_dic[zbb_var_name]
+    elif zbb_var_name.isdigit():
+        return int(zbb_var_name)
+    elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
+        return zbb_var_name.replace("`","")
+    else:
+        raise RuntimeError(f"{zbb_var_name} not in zbb_var_dic")
+
 
 def run_a_line_of_zbb( a_line_of_zbb:str ):
     this_keyword = ''
     for keyword in zbb_keywords:
-        if keyword in a_line_of_zbb:
+        if ((keyword in a_line_of_zbb) or
+            (keyword in a_line_of_zbb.lower()) or
+            (keyword in f"    {a_line_of_zbb}") or
+            (keyword in f"    {a_line_of_zbb.lower()}")):
+
             this_keyword = keyword
             break
     else:
@@ -173,7 +200,7 @@ def run_a_line_of_zbb( a_line_of_zbb:str ):
 
     this_para = a_line_of_zbb.replace(this_keyword, '').replace(" ",'').split(",")
 
-    func = zbb_keywords[keyword]
-    for_ret = func(*this_para)
+    zbb_do = zbb_keywords[keyword]
+    for_ret = zbb_do(*this_para)
 
     return for_ret
