@@ -1,8 +1,10 @@
 MOVE `a` , temp_shell_para
+MOVE 1 , i
 USE echo
 // 我是注释
-JUMP next
+JE next, 1 , i , continue
 
+::continue
 MOVE `b` , temp_shell_para
 USE echo
 

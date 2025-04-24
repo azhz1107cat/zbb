@@ -188,10 +188,7 @@ def zbb_data(zbb_var_name:str):
 def run_a_line_of_zbb( a_line_of_zbb:str ):
     this_keyword = ''
     for keyword in zbb_keywords:
-        if ((keyword in a_line_of_zbb) or
-            (keyword in a_line_of_zbb.lower()) or
-            (keyword in f"    {a_line_of_zbb}") or
-            (keyword in f"    {a_line_of_zbb.lower()}")):
+        if keyword in a_line_of_zbb:
 
             this_keyword = keyword
             break
