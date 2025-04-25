@@ -1,6 +1,6 @@
 import os
 import time
-from public_var import zbb_var_dic , zbb_mark_dic, code_text_to_list , line_num , isJUMP
+from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, line_num, now_is_run_func, zbb_func_dic
 
 
 def do_use(system_ins_name:str):
@@ -58,17 +58,39 @@ def do_move(data1:str,var_name:str):
 
 def do_call(func_name:str):
     # 调用函数
-    pass
+    global line_num
+    if func_name in zbb_func_dic:
+        zbb_func_dic[func_name]["call_from"] = line_num
+        return zbb_func_dic[func_name]["start"]
 
 
 def do_func(func_name:str):
     # 定义函数
-    pass
+    global now_is_run_func
+    if now_is_run_func == "":
+        if zbb_func_dic[func_name]["call_from"] is not None:
+            now_is_run_func = func_name
+            return None
+        else:
+            raise RuntimeError("call error")
+    else:
+        return zbb_func_dic[func_name]["end"]
 
+def do_end(x):
+    global now_is_run_func
+    if now_is_run_func != "":
+        now_is_run_func = ""
+        return zbb_func_dic[now_is_run_func]["call_from"] + 1
+
+    elif  now_is_run_func == "":
+        return None
 
 def do_jump(label:str):
     # 无条件跳转
-    return zbb_mark_dic[label]
+    if label in zbb_mark_dic:
+        return zbb_mark_dic[label]
+    else:
+        raise RuntimeError("Mark not found")
 
 def do_je(label:str,var_name1:str,var_name2:str,else_label:str):
     # 等于跳转
@@ -151,6 +173,7 @@ zbb_keywords = {
     "SET": do_set,
     "DEL": do_del,
     "FUNC": do_func,
+    "END": do_end,
     "ADD": do_add,
     "SUB": do_sub,
     "MULT": do_mult,
@@ -190,12 +213,12 @@ def run_a_line_of_zbb( a_line_of_zbb:str ):
     for keyword in zbb_keywords:
         if keyword in a_line_of_zbb:
             this_keyword = keyword
-            this_para = a_line_of_zbb.replace(this_keyword, '').replace(" ", '').split(",")
+            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword, '').split(",")
             break
 
         if  keyword.lower() in a_line_of_zbb:
             this_keyword = keyword
-            this_para = a_line_of_zbb.replace(this_keyword.lower(), '').replace(" ", '').split(",")
+            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword.lower(), '').split(",")
             break
     else:
         raise RuntimeError(f"Grammar error when parsing\n")

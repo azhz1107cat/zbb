@@ -1,13 +1,8 @@
-move `a` , temp_shell_para
-move 1 , i
-use echo
-// 我是注释
-je next, 1 ,i , continue
+// 函数实例
+func print_hello
+    move `hello world` , temp_shell_para
+    use echo
+end
 
-::continue
-move `b` , temp_shell_para
-use echo
-
-:: next
-move `c` ,  temp_shell_para
-use echo
+call print_hello
+exit

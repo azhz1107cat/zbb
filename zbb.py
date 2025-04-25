@@ -3,7 +3,6 @@ from public_var import zbb_func_dic
 
 if __name__ == "__main__":
     with open('test/test.zbb', 'r', encoding='utf-8') as f:
-
         code_text = f.read()
         os.system('chcp 65001')
         print("==running==\n")
@@ -44,7 +43,8 @@ if __name__ == "__main__":
                 change_line_num = run_a_line_of_zbb(each_line_of_code)
                 line_num = change_line_num if change_line_num is not None else line_num
             except (RuntimeError,TypeError,KeyError) as e:
-                print(f"{e}\n { code_text_to_list[line_num] } \n {'^' * len( code_text_to_list[line_num] ) } \n in line {line_num+1}\n")
+                print(f"\033[31m{e}\nline {line_num+1}: { code_text_to_list[line_num] } \n {" " * (6+len(str(line_num+1)))+'^' * len(code_text_to_list[line_num]) }\n\033[0m")
+
                 break
 
             line_num += 1
