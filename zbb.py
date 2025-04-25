@@ -13,6 +13,8 @@ if __name__ == "__main__":
             if each_line.startswith("::"):
                 label = each_line.replace("::", "").replace(" ", "")
                 zbb_mark_dic[label] = line_num
+            if each_line.startswith("func") or each_line.startswith("FUNC"):
+                pass
             line_num += 1
 
         line_num = 0

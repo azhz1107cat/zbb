@@ -26,6 +26,8 @@ zbb_var_dic = { "temp_shell_para" : '',
 
 zbb_mark_dic = {}
 
+zbb_func_dic = {}
+
 """
 初始化了临时存储器
 - 临时存储器 tsp 用于在shell中传递参数
