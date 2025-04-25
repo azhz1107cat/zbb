@@ -1,4 +1,5 @@
 from do_zbb_ins import *
+from public_var import zbb_func_dic
 
 if __name__ == "__main__":
     with open('test/test.zbb', 'r', encoding='utf-8') as f:
@@ -9,12 +10,24 @@ if __name__ == "__main__":
         start_time = time.time()
         code_text_to_list = code_text.split('\n')
         # 标签寻找
+        func_not_end = ""
         for each_line in code_text_to_list:
             if each_line.startswith("::"):
                 label = each_line.replace("::", "").replace(" ", "")
                 zbb_mark_dic[label] = line_num
+
             if each_line.startswith("func") or each_line.startswith("FUNC"):
-                pass
+                func_keyword = "func" if each_line.startswith("func") else "FUNC"
+                func_name =  each_line.replace(func_keyword, '').replace(" ", '')
+                func_not_end = func_name
+                zbb_func_dic[func_name] = {"start":line_num,
+                                           "end": None,
+                                           "call_from":None
+                                           }
+            if each_line.startswith("end") or each_line.startswith("END"):
+                zbb_func_dic[func_not_end]["end"] = line_num
+                func_not_end = ""
+
             line_num += 1
 
         line_num = 0
