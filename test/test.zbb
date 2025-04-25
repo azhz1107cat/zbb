@@ -1,13 +1,13 @@
-MOVE `a` , temp_shell_para
-MOVE 1 , i
-USE echo
+move `a` , temp_shell_para
+move 1 , i
+use echo
 // 我是注释
-JE next, 1 , i , continue
+je next, 1 ,i , continue
 
 ::continue
-MOVE `b` , temp_shell_para
-USE echo
+move `b` , temp_shell_para
+use echo
 
 :: next
-MOVE `c` , temp_shell_para
+move `c` ,  temp_shell_para
 USE echo

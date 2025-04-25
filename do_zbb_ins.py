@@ -189,15 +189,20 @@ def run_a_line_of_zbb( a_line_of_zbb:str ):
     this_keyword = ''
     for keyword in zbb_keywords:
         if keyword in a_line_of_zbb:
-
             this_keyword = keyword
+            this_para = a_line_of_zbb.replace(this_keyword, '').replace(" ", '').split(",")
+            break
+
+        if  keyword.lower() in a_line_of_zbb:
+            this_keyword = keyword
+            this_para = a_line_of_zbb.replace(this_keyword.lower(), '').replace(" ", '').split(",")
             break
     else:
         raise RuntimeError(f"Grammar error when parsing\n")
 
-    this_para = a_line_of_zbb.replace(this_keyword, '').replace(" ",'').split(",")
 
-    zbb_do = zbb_keywords[keyword]
+
+    zbb_do = zbb_keywords[ this_keyword ]
     for_ret = zbb_do(*this_para)
 
     return for_ret
