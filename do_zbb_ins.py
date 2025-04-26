@@ -1,6 +1,8 @@
 import os
+import sys
 import time
-from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, line_num, now_is_run_func, zbb_func_dic
+import public_var
+from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_dic
 
 
 def do_use(system_ins_name:str):
@@ -58,32 +60,26 @@ def do_move(data1:str,var_name:str):
 
 def do_call(func_name:str):
     # 调用函数
-    global line_num
     if func_name in zbb_func_dic:
-        zbb_func_dic[func_name]["call_from"] = line_num
+        zbb_func_dic[func_name]["call_from"] = public_var.line_num
         return zbb_func_dic[func_name]["start"]
+    else:
+        raise RuntimeError("Function not found")
 
 
 def do_func(func_name:str):
     # 定义函数
-    global now_is_run_func
-    if now_is_run_func == "":
-        if zbb_func_dic[func_name]["call_from"] is not None:
-            now_is_run_func = func_name
-            return None
-        else:
-            raise RuntimeError("call error")
-    else:
+    if zbb_func_dic[func_name]["call_from"] is None:
         return zbb_func_dic[func_name]["end"]
-
-def do_end(x):
-    global now_is_run_func
-    if now_is_run_func != "":
-        now_is_run_func = ""
-        return zbb_func_dic[now_is_run_func]["call_from"] + 1
-
-    elif  now_is_run_func == "":
+    else:
         return None
+
+def do_end(func_name:str):
+    # 函数结束标记
+    if zbb_func_dic[func_name]["call_from"] is None:
+        return None
+    else:
+        return zbb_func_dic[func_name]["call_from"]
 
 def do_jump(label:str):
     # 无条件跳转
@@ -208,7 +204,7 @@ def zbb_data(zbb_var_name:str):
         raise RuntimeError(f"{zbb_var_name} not in zbb_var_dic")
 
 
-def run_a_line_of_zbb( a_line_of_zbb:str ):
+def run_a_line_of_zbb( a_line_of_zbb:str):
     this_keyword = ''
     for keyword in zbb_keywords:
         if keyword in a_line_of_zbb:
@@ -222,7 +218,6 @@ def run_a_line_of_zbb( a_line_of_zbb:str ):
             break
     else:
         raise RuntimeError(f"Grammar error when parsing\n")
-
 
 
     zbb_do = zbb_keywords[ this_keyword ]

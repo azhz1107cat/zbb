@@ -2,7 +2,12 @@
 func print_hello
     move `hello world` , temp_shell_para
     use echo
-end
+end print_hello
+
+func love_zbb
+    move `love zbb` , temp_shell_para
+    use echo
+end love_zbb
 
 call print_hello
-exit
+call love_zbb

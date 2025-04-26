@@ -38,4 +38,3 @@ zbb_func_dic = {}
 """
 code_text_to_list = []
 line_num = 0
-now_is_run_func = ""
