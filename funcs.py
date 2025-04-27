@@ -21,7 +21,6 @@ def do_arr(*arr_list):
 def do_use(system_ins_name:str):
     # 使用系统指令
     os.system(f"{system_ins_name} { zbb_var_dic['temp_shell_para'] }")
-    zbb_var_dic['temp_shell_para'] = ''
 
 def do_set(var_name:str):
     # 为变量分配空间
