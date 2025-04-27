@@ -1,8 +1,21 @@
 import os
-import sys
-import time
 import public_var
 from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_dic
+
+def zbb_data(zbb_var_name:str):
+    if zbb_var_name in zbb_var_dic:
+        return zbb_var_dic[zbb_var_name]
+    elif zbb_var_name.isdigit():
+        return int(zbb_var_name)
+    elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
+        return zbb_var_name.replace("`","")
+    else:
+        raise RuntimeError(f"{zbb_var_name} not in zbb_var_dic")
+
+
+def do_arr(*arr_list):
+    arr_main = arr_list
+    zbb_var_dic["temp_arr"] = arr_main
 
 
 def do_use(system_ins_name:str):
@@ -159,68 +172,3 @@ def do_pop(stack_name:str):
     # 取栈顶值
     on_top_stack = zbb_var_dic[stack_name].pop()
     zbb_var_dic["temp_get_ret"] = on_top_stack
-
-'''
-关键字表
-'''
-
-zbb_keywords = {
-    "USE": do_use,
-    "SET": do_set,
-    "DEL": do_del,
-    "FUNC": do_func,
-    "END": do_end,
-    "ADD": do_add,
-    "SUB": do_sub,
-    "MULT": do_mult,
-    "DIV": do_div,
-    "OPP": do_opp,
-    "MOVE": do_move,
-    "JUMP": do_jump,
-    "JE": do_je,
-    "JL": do_jl,
-    "JG": do_jg,
-    "JNE": do_jne,
-    "EXIT": do_exit,
-    "CALL": do_call,
-    "CLEAN": do_clean,
-    "PUSH": do_push,
-    "POP": do_pop,
-    "NOP": do_nop,
-    "::": do_nop
-}
-
-'''
-主要部分如下
-'''
-def zbb_data(zbb_var_name:str):
-    if zbb_var_name in zbb_var_dic:
-        return zbb_var_dic[zbb_var_name]
-    elif zbb_var_name.isdigit():
-        return int(zbb_var_name)
-    elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
-        return zbb_var_name.replace("`","")
-    else:
-        raise RuntimeError(f"{zbb_var_name} not in zbb_var_dic")
-
-
-def run_a_line_of_zbb( a_line_of_zbb:str):
-    this_keyword = ''
-    for keyword in zbb_keywords:
-        if keyword in a_line_of_zbb:
-            this_keyword = keyword
-            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword, '').split(",")
-            break
-
-        if  keyword.lower() in a_line_of_zbb:
-            this_keyword = keyword
-            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword.lower(), '').split(",")
-            break
-    else:
-        raise RuntimeError(f"Grammar error when parsing\n")
-
-
-    zbb_do = zbb_keywords[ this_keyword ]
-    for_ret = zbb_do(*this_para)
-
-    return for_ret
