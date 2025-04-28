@@ -2,7 +2,7 @@ from core import *
 
 if __name__ == "__main__":
     while True:
-        os.system('echo ""')
+        os.system('cls')
         if len(sys.argv) > 1:
             zbb_file_to_run = sys.argv[1]
             main(zbb_file_to_run)
@@ -26,4 +26,4 @@ if __name__ == "__main__":
 
         else:
             print("\033[31mPlease input help , run or out ; window will close in 6s\033[0m")
-            time.sleep(6)
+
