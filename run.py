@@ -23,7 +23,11 @@ if __name__ == "__main__":
                 print(f"\033[31m{e}\033[0m")
             except FileNotFoundError as e:
                 print(f"\033[31m{e}\033[0m")
-
         else:
             print("\033[31mPlease input help , run or out ; window will close in 6s\033[0m")
+        '''input_to_exit = input("Type ENTER to continue")
+        if input_to_exit == "":
+            continue
+        else:
+            exit()'''
 
