@@ -1,0 +1,36 @@
+// 函数实例
+func print_hello
+    move `hello world` , temp_shell_para
+    use echo
+end print_hello
+
+func love_zbb
+    move `love zbb` , temp_shell_para
+    use echo
+end love_zbb
+
+func output_cn
+    move `一二三` , temp_shell_para
+    use echo
+end output_cn
+
+call print_hello
+call love_zbb
+call output_cn
+
+
+// 循环实例
+set i
+move 0 , i
+
+::while_start
+jl while_body , i , 12 , while_end
+::while_body
+    move i , temp_shell_para
+    use echo
+
+    add 1 , i
+    move temp_calc , i
+
+    jump while_start
+::while_end

@@ -43,12 +43,12 @@ zbb_keywords = {
 def run_a_line_of_zbb( a_line_of_zbb:str):
     this_keyword = ''
     for keyword in zbb_keywords:
-        if keyword in a_line_of_zbb:
+        if a_line_of_zbb.replace(" ",'').startswith(keyword):
             this_keyword = keyword
             this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword, '').split(",")
             break
 
-        if  keyword.lower() in a_line_of_zbb:
+        if  a_line_of_zbb.replace(" ",'').startswith(keyword.lower()):
             this_keyword = keyword
             this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword.lower(), '').split(",")
             break
@@ -108,7 +108,8 @@ def main(zbb_file_to_run):
                 public_var.line_num = change_line_num if change_line_num is not None else public_var.line_num
             except (RuntimeError, TypeError, KeyError) as e:
                 print(
-                    f"\033[31m{e}\nline {public_var.line_num + 1}: {code_text_to_list[public_var.line_num]} \n {" " * (6 + len(str(public_var.line_num + 1))) + '^' * len(code_text_to_list[public_var.line_num])}\n\033[0m")
+                    f"\033[31m{e}\nline {public_var.line_num + 1}: {code_text_to_list[public_var.line_num]} \n {" " * (6 + len(str(public_var.line_num + 1))) + '^' * len(code_text_to_list[public_var.line_num])}\n\033[0m"
+                )
                 break
             public_var.line_num += 1
 

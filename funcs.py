@@ -4,7 +4,11 @@ from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_di
 
 def zbb_data(zbb_var_name:str):
     if zbb_var_name in zbb_var_dic:
-        return zbb_var_dic[zbb_var_name]
+        if zbb_var_dic[zbb_var_name].isdigit():
+            return int(zbb_var_dic[zbb_var_name])
+        else:
+            return zbb_var_dic[zbb_var_name]
+
     elif zbb_var_name.isdigit():
         return int(zbb_var_name)
     elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
@@ -34,8 +38,8 @@ def do_del(var_name:str):
 
 def do_add(first_num:str,second_num:str):
     # 加法运算
-    first_num = zbb_data(first_num)
-    second_num = zbb_data(second_num)
+    first_num = int(zbb_data(first_num))
+    second_num = int(zbb_data(second_num))
     zbb_var_dic['temp_calc'] = str(first_num + second_num)
 
 
@@ -67,7 +71,7 @@ def do_opp(num1:str):
 
 def do_move(data1:str,var_name:str):
     # 将数据移入变量
-    zbb_var_dic[var_name] = zbb_data(data1)
+    zbb_var_dic[var_name] = str(zbb_data(data1))
 
 
 def do_call(func_name:str):
@@ -115,6 +119,7 @@ def do_jl(label:str,var_name1:str,var_name2:str,else_label:str):
             return zbb_mark_dic[label]
         else:
             return zbb_mark_dic[else_label]
+
     except KeyError as e:
         raise RuntimeError(f"{e} : Mark not found")
     except TypeError as e:
