@@ -15,8 +15,7 @@ if __name__ == "__main__":
             help 帮助
             run <文件名> 运行文件
             out 退出
-            >>>
-            '''
+            >>>'''
         ))
         if user_input == "help":
             with open("documents/zbb_help.md", 'r', encoding='utf-8') as f:
@@ -30,14 +29,9 @@ if __name__ == "__main__":
             try:
                 main(zbb_file_to_run)
             except RuntimeError as e:
-                print(f"\033[31m{e}\033[0m")
+                print(f"{e}")
             except FileNotFoundError as e:
-                print(f"\033[31m{e}\033[0m")
+                print(f"{Fore.RED}{e}{Fore.RESET}")
         else:
-            print("\033[31mPlease input help , run or out ; window will close in 6s\033[0m")
-        '''input_to_exit = input("Type ENTER to continue")
-        if input_to_exit == "":
-            continue
-        else:
-            exit()'''
-
+            print(f"{Fore.RED}Please input help , run or out ; window will close in 6s{Fore.RESET}")
+            time.sleep(6)

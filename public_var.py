@@ -21,7 +21,7 @@ zbb_var_dic = { "temp_shell_para" : '',
                 "temp_calc" : '0' ,
                 "temp_arr" : [] ,
                 "temp_para": Stack(),
-                "temp_ret": Stack(),
+                "temp_ret": "",
                 "temp_all": Stack()
                 }
 

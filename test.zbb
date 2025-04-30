@@ -39,7 +39,7 @@ end do_11_cycle
 
 call do_11_cycle
 
-// 带参数函数
+// 带参数和返回值函数
 func func_with_para
     pop temp_para
     move temp_get , a
@@ -48,9 +48,11 @@ func func_with_para
     move temp_get , b
 
     sub a, b
-    move temp_calc , temp_shell_para
-    use echo
+    move temp_calc , temp_ret
 end func_with_para
 
 push temp_para , 6 ,4
 call func_with_para
+
+move temp_ret , temp_shell_para
+use echo

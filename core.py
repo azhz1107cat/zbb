@@ -1,6 +1,11 @@
 import os
+import sys
 import textwrap
 import time
+
+import colorama
+from colorama import Fore
+
 import public_var
 from funcs import *
 from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_dic
@@ -63,7 +68,10 @@ def run_a_line_of_zbb( a_line_of_zbb:str):
 
 
 def main(zbb_file_to_run):
-    # 打开文件并解析
+    """
+    打开文件并解析
+    """
+
     with open(zbb_file_to_run, 'r', encoding='utf-8') as f:
         public_var.line_num = 0
         code_text = f.read()
@@ -72,7 +80,9 @@ def main(zbb_file_to_run):
         start_time = time.time()
         code_text_to_list = code_text.split('\n')
 
-        # 标签寻找
+        """
+        阅读每一行zbb
+        """
         func_not_end = ""
         for each_line in code_text_to_list:
             if each_line.replace(" ","").startswith("::"):
@@ -94,7 +104,10 @@ def main(zbb_file_to_run):
             public_var.line_num += 1
 
         public_var.line_num = 0
-        # 阅读每一行zbb
+
+        """
+        阅读每一行zbb
+        """
         while True:
             if public_var.line_num < len(code_text_to_list):
                 each_line_of_code = code_text_to_list[public_var.line_num]
@@ -109,12 +122,12 @@ def main(zbb_file_to_run):
                 public_var.line_num = change_line_num if change_line_num is not None else public_var.line_num
             except (RuntimeError, TypeError, KeyError) as e:
                 print(
-                    f"\033[31m{e}\nline {public_var.line_num + 1}: {code_text_to_list[public_var.line_num]} \n {" " * (6 + len(str(public_var.line_num + 1))) + '^' * len(code_text_to_list[public_var.line_num])}\n\033[0m"
+                    f"{Fore.RED}{e}\nline {public_var.line_num + 1}: {code_text_to_list[public_var.line_num]} \n {" " * (6 + len(str(public_var.line_num + 1))) + '^' * len(code_text_to_list[public_var.line_num])}\n{Fore.RESET}"
                 )
                 break
 
             except Exception as e:
-                print("Unknown error:", e)
+                print(f"{Fore.RED}Unknown error:", e , Fore.RESET)
 
             public_var.line_num += 1
 
@@ -122,8 +135,8 @@ def main(zbb_file_to_run):
                 break
 
         end_time = time.time()
-        print(f"\n==done runtime:{end_time - start_time}==")
-        input_to_exit = input("Type ENTER to continue")
+        print(f"\n==program done\nruntime:{end_time - start_time}==")
+        input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
         if input_to_exit == "":
             return
         else:
