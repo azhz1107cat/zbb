@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43f23fa9-c6b0-4abb-ae48-d4609dc2ea68" name="更改" comment="添加了一些功能">
-      <change beforePath="$PROJECT_DIR$/funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public_var.py" beforeDir="false" afterPath="$PROJECT_DIR$/public_var.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.zbb" beforeDir="false" afterPath="$PROJECT_DIR$/test.zbb" afterDir="false" />
-    </list>
+    <list default="true" id="43f23fa9-c6b0-4abb-ae48-d4609dc2ea68" name="更改" comment="添加了一些功能" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,7 +166,7 @@
       <workItem from="1745760788567" duration="2285000" />
       <workItem from="1745814223318" duration="2671000" />
       <workItem from="1745900845848" duration="2963000" />
-      <workItem from="1746008345903" duration="6699000" />
+      <workItem from="1746008345903" duration="8431000" />
     </task>
     <task id="LOCAL-00001" summary="添加了一些功能">
       <option name="closed" value="true" />
@@ -332,7 +328,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746010612781</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="添加了一些功能">
+      <option name="closed" value="true" />
+      <created>1746029042720</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1746029042720</updated>
+    </task>
+    <task id="LOCAL-00022" summary="添加了一些功能">
+      <option name="closed" value="true" />
+      <created>1746029134518</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1746029134518</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -365,7 +377,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/zbb$run.coverage" NAME="run 覆盖结果" MODIFIED="1746027391611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/zbb$run.coverage" NAME="run 覆盖结果" MODIFIED="1746029022249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/zbb$__init__.coverage" NAME="__init__ 覆盖结果" MODIFIED="1745596567538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../maliang-main/maliang" />
     <SUITE FILE_PATH="coverage/zbb$zbb.coverage" NAME="run 覆盖结果" MODIFIED="1745669308144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

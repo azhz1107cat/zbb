@@ -35,9 +35,6 @@ def zbb_data(zbb_var_name:str):
     elif type(zbb_var_name) is int:
         return zbb_var_name
 
-    elif zbb_var_name.isdigit():
-        return int(zbb_var_name)
-
     elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
         return zbb_var_name.replace("`","")
 
