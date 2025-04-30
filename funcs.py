@@ -28,7 +28,7 @@ def zbb_data(zbb_var_name:str):
             raise RuntimeError("Arr not found")
 
         if type(index_of_arr) is int:
-            return str(zbb_var_dic[zbb_var_name][index_of_arr])
+            return zbb_var_dic[zbb_var_name][index_of_arr]
         else:
             raise RuntimeError("Index of Array must be int")
 
