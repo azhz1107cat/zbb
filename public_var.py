@@ -6,8 +6,8 @@ class Stack:
         self.main.insert(0, x)
 
     def pop(self):
-        del self.main[0]
-        return self.main[0]
+        if len(self.main) > 0:
+            return self.main.pop(0)
 
     def clear(self):
         self.main = []

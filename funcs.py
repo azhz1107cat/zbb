@@ -175,4 +175,4 @@ def do_push(stack_name:str, *stack_content):
 def do_pop(stack_name:str):
     # 取栈顶值
     on_top_stack = zbb_var_dic[stack_name].pop()
-    zbb_var_dic["temp_get_ret"] = on_top_stack
+    zbb_var_dic["temp_get"] = on_top_stack

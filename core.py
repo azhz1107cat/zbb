@@ -1,5 +1,5 @@
 import os
-import sys
+import textwrap
 import time
 import public_var
 from funcs import *
@@ -45,12 +45,12 @@ def run_a_line_of_zbb( a_line_of_zbb:str):
     for keyword in zbb_keywords:
         if a_line_of_zbb.replace(" ",'').startswith(keyword):
             this_keyword = keyword
-            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword, '').split(",")
+            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword, '',1).split(",")
             break
 
         if  a_line_of_zbb.replace(" ",'').startswith(keyword.lower()):
             this_keyword = keyword
-            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword.lower(), '').split(",")
+            this_para = a_line_of_zbb.replace(" ", '').replace(this_keyword.lower(), '',1).split(",")
             break
     else:
         raise RuntimeError(f"Grammar error when parsing\n")
@@ -71,16 +71,17 @@ def main(zbb_file_to_run):
         print("==running==\n")
         start_time = time.time()
         code_text_to_list = code_text.split('\n')
+
         # 标签寻找
         func_not_end = ""
         for each_line in code_text_to_list:
-            if each_line.startswith("::"):
-                label = each_line.replace("::", "").replace(" ", "")
+            if each_line.replace(" ","").startswith("::"):
+                label = each_line.replace("::", "",1).replace(" ", "")
                 zbb_mark_dic[label] = public_var.line_num
 
             if each_line.startswith("func") or each_line.startswith("FUNC"):
                 func_keyword = "func" if each_line.startswith("func") else "FUNC"
-                func_name = each_line.replace(func_keyword, '').replace(" ", '')
+                func_name = each_line.replace(func_keyword, '',1).replace(" ", '')
                 func_not_end = func_name
                 zbb_func_dic[func_name] = {"start": public_var.line_num,
                                            "end": None,
@@ -111,6 +112,10 @@ def main(zbb_file_to_run):
                     f"\033[31m{e}\nline {public_var.line_num + 1}: {code_text_to_list[public_var.line_num]} \n {" " * (6 + len(str(public_var.line_num + 1))) + '^' * len(code_text_to_list[public_var.line_num])}\n\033[0m"
                 )
                 break
+
+            except Exception as e:
+                print("Unknown error:", e)
+
             public_var.line_num += 1
 
             if (public_var.line_num - 1) == len(code_text_to_list):

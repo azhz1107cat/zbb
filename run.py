@@ -7,7 +7,17 @@ if __name__ == "__main__":
             zbb_file_to_run = sys.argv[1]
             main(zbb_file_to_run)
 
-        user_input = input("***欢迎使用ZBB解析器***\n请输入指令\nhelp- 帮助\nrun- 运行文件名\nout- 退出\n>>>")
+        user_input = input(textwrap.dedent(
+            '''
+            ==欢迎使用ZBB解析器==
+            ------------------
+            请输入指令
+            help 帮助
+            run <文件名> 运行文件
+            out 退出
+            >>>
+            '''
+        ))
         if user_input == "help":
             with open("documents/zbb_help.md", 'r', encoding='utf-8') as f:
                 print(f.read())
@@ -16,7 +26,7 @@ if __name__ == "__main__":
             exit()
 
         elif user_input.startswith("run"):
-            zbb_file_to_run = user_input.replace(" ", "").replace("run", "")
+            zbb_file_to_run = user_input.replace(" ", "").replace("run", "",1)
             try:
                 main(zbb_file_to_run)
             except RuntimeError as e:

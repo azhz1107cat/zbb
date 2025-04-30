@@ -20,12 +20,13 @@ call output_cn
 
 
 // 循环实例
-set i
-move 0 , i
+func do_11_cycle
+    set i
+    move 0 , i
 
-::while_start
-jl while_body , i , 12 , while_end
-::while_body
+    ::while_start
+    jl while_body , i , 12 , while_end
+    ::while_body
     move i , temp_shell_para
     use echo
 
@@ -33,4 +34,23 @@ jl while_body , i , 12 , while_end
     move temp_calc , i
 
     jump while_start
-::while_end
+    ::while_end
+end do_11_cycle
+
+call do_11_cycle
+
+// 带参数函数
+func func_with_para
+    pop temp_para
+    move temp_get , a
+
+    pop temp_para
+    move temp_get , b
+
+    sub a, b
+    move temp_calc , temp_shell_para
+    use echo
+end func_with_para
+
+push temp_para , 6 ,4
+call func_with_para
