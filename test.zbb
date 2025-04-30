@@ -41,6 +41,8 @@ call do_11_cycle
 
 // 带参数和返回值函数
 func func_with_para
+    set a
+    set b
     pop temp_para
     move temp_get , a
 
@@ -55,4 +57,11 @@ push temp_para , 6 ,4
 call func_with_para
 
 move temp_ret , temp_shell_para
+use echo
+
+set my_arr
+arr 1,2,3,4,5,6,7,8,9,10,11
+move temp_arr , my_arr
+
+move [my_arr:5] , temp_shell_para
 use echo

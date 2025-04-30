@@ -18,16 +18,20 @@ class Stack:
 
 zbb_var_dic = { "temp_shell_para" : '',
                 "temp_get" : '',
-                "temp_calc" : '0' ,
+                "temp_calc" : 0 ,
                 "temp_arr" : [] ,
+                "temp_ret": None,
                 "temp_para": Stack(),
-                "temp_ret": "",
                 "temp_all": Stack()
                 }
 
 zbb_mark_dic = {}
 
 zbb_func_dic = {}
+
+code_text_to_list = []
+
+line_num = 0
 
 """
 初始化了临时存储器
@@ -37,5 +41,3 @@ zbb_func_dic = {}
 - 临时存储器 tr 用于储存函数返回值
 - 临时存储器 ta 是通用寄存器
 """
-code_text_to_list = []
-line_num = 0

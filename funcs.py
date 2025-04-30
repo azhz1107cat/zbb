@@ -4,22 +4,53 @@ from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_di
 
 def zbb_data(zbb_var_name:str):
     if zbb_var_name in zbb_var_dic:
-        if zbb_var_dic[zbb_var_name].isdigit():
-            return int(zbb_var_dic[zbb_var_name])
-        else:
+
+        if type(zbb_var_dic[zbb_var_name]) is int:
             return zbb_var_dic[zbb_var_name]
+
+        elif type(zbb_var_dic[zbb_var_name]) is str:
+            return zbb_var_dic[zbb_var_name]
+
+        elif type(zbb_var_dic[zbb_var_name]) is list:
+            return zbb_var_dic[zbb_var_name]
+        else:
+            raise RuntimeError("Type error")
+
+    elif zbb_var_name.startswith("[") and zbb_var_name.endswith("]"):
+        index_of_arr = 0
+        if ":" in zbb_var_name:
+            index_of_arr = zbb_data( zbb_var_name.replace("[","").replace("]","").split(":")[1] )
+        else:
+            index_of_arr = 0
+
+        zbb_var_name = zbb_var_name.replace("[","").replace("]","").split(":")[0]
+        if zbb_var_name not in zbb_var_dic:
+            raise RuntimeError("Arr not found")
+
+        if type(index_of_arr) is int:
+            return str(zbb_var_dic[zbb_var_name][index_of_arr])
+        else:
+            raise RuntimeError("Index of Array must be int")
+
+    elif type(zbb_var_name) is int:
+        return zbb_var_name
 
     elif zbb_var_name.isdigit():
         return int(zbb_var_name)
+
     elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
         return zbb_var_name.replace("`","")
+
+    elif type(zbb_var_name) is list:
+        return zbb_var_name
+
     else:
         raise RuntimeError(f"{zbb_var_name} not in zbb_var_dic")
 
 
 def do_arr(*arr_list):
-    arr_main = arr_list
-    zbb_var_dic["temp_arr"] = arr_main
+    for item in arr_list:
+        zbb_var_dic["temp_arr"].append(item)
 
 
 def do_use(system_ins_name:str):
@@ -28,7 +59,7 @@ def do_use(system_ins_name:str):
 
 def do_set(var_name:str):
     # 为变量分配空间
-    zbb_var_dic[var_name] = ''
+    zbb_var_dic[var_name] = None
 
 
 def do_del(var_name:str):
@@ -38,30 +69,30 @@ def do_del(var_name:str):
 
 def do_add(first_num:str,second_num:str):
     # 加法运算
-    first_num = int(zbb_data(first_num))
-    second_num = int(zbb_data(second_num))
-    zbb_var_dic['temp_calc'] = str(first_num + second_num)
+    first_num = zbb_data(first_num)
+    second_num = zbb_data(second_num)
+    zbb_var_dic['temp_calc'] = first_num + second_num
 
 
 def do_sub(first_num:str,second_num:str):
     # 减法运算
     first_num = zbb_data(first_num)
     second_num = zbb_data(second_num)
-    zbb_var_dic['temp_calc'] = str(first_num - second_num)
+    zbb_var_dic['temp_calc'] = first_num - second_num
 
 
 def do_mult(first_num:str,second_num:str):
     # 乘法运算
     first_num = zbb_data(first_num)
     second_num = zbb_data(second_num)
-    zbb_var_dic['temp_calc'] = str(first_num * second_num)
+    zbb_var_dic['temp_calc'] = first_num * second_num
 
 
 def do_div(first_num:str,second_num:str):
     # 除法运算
     first_num = zbb_data(first_num)
     second_num = zbb_data(second_num)
-    zbb_var_dic['temp_calc'] = str(first_num / second_num)
+    zbb_var_dic['temp_calc'] = first_num / second_num
 
 
 def do_opp(num1:str):
@@ -71,7 +102,10 @@ def do_opp(num1:str):
 
 def do_move(data1:str,var_name:str):
     # 将数据移入变量
-    zbb_var_dic[var_name] = str(zbb_data(data1))
+    if var_name in zbb_var_dic:
+        zbb_var_dic[var_name] = zbb_data(data1)
+    else:
+        raise RuntimeError(f"{var_name} not in zbb_var_dic")
 
 
 def do_call(func_name:str):
@@ -169,7 +203,7 @@ def do_clean(stack_name:str):
 def do_push(stack_name:str, *stack_content):
     # 推至栈顶
     for item in stack_content:
-        zbb_var_dic[stack_name].push(item)
+        zbb_var_dic[stack_name].push(zbb_data(item))
 
 
 def do_pop(stack_name:str):
