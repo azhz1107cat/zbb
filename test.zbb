@@ -4,18 +4,12 @@ func print_hello
     use echo
 end print_hello
 
-func love_zbb
-    move `love zbb` , temp_shell_para
-    use echo
-end love_zbb
-
 func output_cn
     move `一二三` , temp_shell_para
     use echo
 end output_cn
 
 call print_hello
-call love_zbb
 call output_cn
 
 
@@ -60,8 +54,22 @@ move temp_ret , temp_shell_para
 use echo
 
 set my_arr
-arr 1,2,3,4,5,6,7,8,9,10,11
+arr `a`,`b`,`c`
 move temp_arr , my_arr
 
-move [my_arr:5] , temp_shell_para
+move [my_arr:2] , temp_shell_para
+use echo
+
+move 33 , [my_arr:2]
+
+move [my_arr:2] , temp_shell_para
+use echo
+
+dic my_dic
+    item `name`,`Tom`
+    item `age` , 12
+    item `school`,`...`
+end my_dic
+
+move [my_dic:`name`] , temp_shell_para
 use echo

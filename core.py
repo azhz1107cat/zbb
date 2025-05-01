@@ -32,6 +32,8 @@ zbb_keywords = {
     "JG": do_jg,
     "JNE": do_jne,
     "ARR": do_arr,
+    "DIC": do_nop,
+    "ITEM": do_nop,
     "EXIT": do_exit,
     "CALL": do_call,
     "CLEAN": do_clean,
@@ -81,8 +83,10 @@ def main(zbb_file_to_run):
         code_text_to_list = code_text.split('\n')
 
         """
-        阅读每一行zbb
+        标签、函数、字典预定义
         """
+        temp_dic_ = {}
+        dic_not_end = ""
         func_not_end = ""
         for each_line in code_text_to_list:
             if each_line.replace(" ","").startswith("::"):
@@ -97,11 +101,33 @@ def main(zbb_file_to_run):
                                            "end": None,
                                            "call_from": None
                                            }
-            if each_line.startswith("end") or each_line.startswith("END"):
-                zbb_func_dic[func_not_end]["end"] = public_var.line_num
-                func_not_end = ""
+            if each_line.replace(" ","").startswith("dic") or each_line.startswith("DIC"):
+                dic_keyword = "dic" if each_line.startswith("dic") else "DIC"
+                dic_name = each_line.replace(dic_keyword, '',1).replace(" ", '')
+                dic_not_end = dic_name
+
+            if each_line.replace(" ","").startswith("end") or each_line.startswith("END"):
+                if dic_not_end != "":
+                    zbb_var_dic[dic_not_end] = temp_dic_
+                    temp_dic_ = {}
+                    dic_not_end = ""
+
+                elif dic_not_end == "":
+                    zbb_func_dic[func_not_end]["end"] = public_var.line_num
+                    func_not_end = ""
+
+            if each_line.replace(" ","").startswith("item") or each_line.startswith("ITEM"):
+                item_keyword = "item" if each_line.replace(" ","").startswith("item") else "ITEM"
+                item_key = each_line.replace(item_keyword, '',1).replace(" ", '').split(",")[0]
+                item_value = each_line.replace(item_keyword, '', 1).replace(" ", '').split(",")[1]
+                temp_dic_[zbb_data(item_key)] = zbb_data(item_value)
 
             public_var.line_num += 1
+
+        if dic_not_end != "" :
+            print(f"{Fore.RED}Dic not end:",Fore.RESET)
+        if func_not_end != "" :
+            print(f"{Fore.RED}Func not end", Fore.RESET)
 
         public_var.line_num = 0
 
@@ -127,11 +153,11 @@ def main(zbb_file_to_run):
                 break
 
             except Exception as e:
-                print(f"{Fore.RED}Unknown error:", e , Fore.RESET)
+                print(f"{Fore.RED}UnSupport error:", e , Fore.RESET)
 
             public_var.line_num += 1
 
-            if (public_var.line_num - 1) == len(code_text_to_list):
+            if public_var.line_num - 1 == len(code_text_to_list):
                 break
 
         end_time = time.time()

@@ -3,6 +3,7 @@ import public_var
 from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_dic
 
 def zbb_data(zbb_var_name:str):
+
     if zbb_var_name in zbb_var_dic:
 
         if type(zbb_var_dic[zbb_var_name]) is int:
@@ -27,22 +28,54 @@ def zbb_data(zbb_var_name:str):
         if zbb_var_name not in zbb_var_dic:
             raise RuntimeError("Arr not found")
 
-        if type(index_of_arr) is int:
-            return zbb_var_dic[zbb_var_name][index_of_arr]
+        if type(index_of_arr) is int and index_of_arr < len(zbb_var_dic[zbb_var_name]):
+            return zbb_data(zbb_var_dic[zbb_var_name][index_of_arr])
+        elif type(index_of_arr) is str:
+            return zbb_data(zbb_var_dic[zbb_var_name][index_of_arr])
+        elif index_of_arr >= len(zbb_var_dic[zbb_var_name]):
+            raise RuntimeError("Index out of range")
         else:
             raise RuntimeError("Index of Array must be int")
 
     elif type(zbb_var_name) is int:
         return zbb_var_name
 
+    elif zbb_var_name.isdigit():
+        return int(zbb_var_name)
+
     elif zbb_var_name.startswith("`") and zbb_var_name.endswith("`"):
         return zbb_var_name.replace("`","")
+
+    elif type(zbb_var_name) is str:
+        return zbb_var_name
 
     elif type(zbb_var_name) is list:
         return zbb_var_name
 
     else:
-        raise RuntimeError(f"{zbb_var_name} not in zbb_var_dic")
+        raise RuntimeError(f"please check {zbb_var_name}")
+
+
+def do_move(data1:str,var_name:str):
+    # 将数据移入变量
+    if var_name.startswith("$"):
+        raise RuntimeError("Const can not change its value")
+
+    if var_name in zbb_var_dic:
+        zbb_var_dic[var_name] = zbb_data(data1)
+
+    elif var_name.startswith("[") and var_name.endswith("]"):
+        key = var_name.replace("[","").replace("]","").split(":")[0]
+        index = var_name.replace("[","").replace("]","").split(":")[1]
+        index = zbb_data(index)
+        if key in zbb_var_dic:
+            if not (type(data1) is int ) and (data1.startswith("`") and data1.endswith("`")):
+                data1 = zbb_data(data1)
+            zbb_var_dic[key][index] = data1
+        else:
+            raise RuntimeError(f"{var_name} not in zbb_var_dic")
+    else:
+        raise RuntimeError(f"{var_name} not in zbb_var_dic")
 
 
 def do_arr(*arr_list):
@@ -97,14 +130,6 @@ def do_opp(num1:str):
     zbb_var_dic['temp_calc'] = - zbb_data(num1)
 
 
-def do_move(data1:str,var_name:str):
-    # 将数据移入变量
-    if var_name in zbb_var_dic:
-        zbb_var_dic[var_name] = zbb_data(data1)
-    else:
-        raise RuntimeError(f"{var_name} not in zbb_var_dic")
-
-
 def do_call(func_name:str):
     # 调用函数
     if func_name in zbb_func_dic:
@@ -121,12 +146,14 @@ def do_func(func_name:str):
     else:
         return None
 
-def do_end(func_name:str):
+def do_end(func_or_dic_name:str):
     # 函数结束标记
-    if zbb_func_dic[func_name]["call_from"] is None:
+    if not func_or_dic_name in zbb_func_dic:
+        return None
+    if zbb_func_dic[func_or_dic_name]["call_from"] is None:
         return None
     else:
-        return zbb_func_dic[func_name]["call_from"]
+        return zbb_func_dic[func_or_dic_name]["call_from"]
 
 def do_jump(label:str):
     # 无条件跳转
@@ -187,7 +214,7 @@ def do_exit(x):
     exit()
 
 
-def do_nop(x):
+def do_nop(*x):
     # 无作用
     pass
 
