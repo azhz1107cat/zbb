@@ -7,19 +7,15 @@ if __name__ == "__main__":
             zbb_file_to_run = sys.argv[1]
             main(zbb_file_to_run)
 
-        user_input = input(textwrap.dedent(
-            '''
-            ==欢迎使用ZBB解析器==
-            ------------------
-            请输入指令
-            help 帮助
-            run <文件名> 运行文件
-            out 退出
-            >>>'''
-        ))
+        user_input = input("==欢迎使用ZBB解析器==\n------------------\n请输入指令\nhelp 帮助\nrun <文件名> 运行文件\nout 退出\n>>>")
         if user_input == "help":
             with open("documents/zbb_help.md", 'r', encoding='utf-8') as f:
                 print(f.read())
+                input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
+                if input_to_exit == "":
+                    continue
+                else:
+                    exit()
 
         elif user_input == "out":
             exit()
@@ -34,4 +30,8 @@ if __name__ == "__main__":
                 print(f"{Fore.RED}{e}{Fore.RESET}")
         else:
             print(f"{Fore.RED}Please input help , run or out ; window will close in 6s{Fore.RESET}")
-            time.sleep(6)
+            input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
+            if input_to_exit == "":
+                continue
+            else:
+                exit()
