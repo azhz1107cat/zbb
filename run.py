@@ -28,8 +28,13 @@ if __name__ == "__main__":
                 print(f"{e}")
             except FileNotFoundError as e:
                 print(f"{Fore.RED}{e}{Fore.RESET}")
+            finally:
+                input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
+                if input_to_exit == "":
+                    continue
+                else:
+                    exit()
         else:
-            print(f"{Fore.RED}Please input help , run or out ; window will close in 6s{Fore.RESET}")
             input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
             if input_to_exit == "":
                 continue

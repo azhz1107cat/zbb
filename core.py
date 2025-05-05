@@ -161,8 +161,3 @@ def main(zbb_file_to_run):
 
         end_time = time.time()
         print(f"\n==program done\nruntime:{end_time - start_time}==")
-        input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
-        if input_to_exit == "":
-            return
-        else:
-            exit()
