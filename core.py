@@ -1,10 +1,7 @@
 import os
 import sys
 import time
-
-import colorama
 from colorama import Fore
-
 import public_var
 from funcs import *
 from public_var import zbb_var_dic, zbb_mark_dic, code_text_to_list, zbb_func_dic
@@ -146,17 +143,17 @@ def main(zbb_file_to_run):
                 public_var.line_num = change_line_num if change_line_num is not None else public_var.line_num
             except (RuntimeError, TypeError, KeyError) as e:
                 print(
-                    f"{Fore.RED}{e}"
-                    f"line {public_var.line_num + 1}:"
+                    f"{Fore.RED}{e}\n"
+                    f"line {public_var.line_num + 1}: "
                     f"{code_text_to_list[public_var.line_num]} \n "
-                    f"{" " * (6 + len(str(public_var.line_num + 1))) }"
+                    f"{" " * (6 + len(str(public_var.line_num))) }"
                     f"{'^' * len(code_text_to_list[public_var.line_num])}\n"
                     f"{Fore.RESET}"
                 )
                 break
 
             except Exception as e:
-                print(f"{Fore.RED}UnSupport error:", e , Fore.RESET)
+                print(f"{Fore.RED}UnSupport error:,{e}{Fore.RESET}")
 
             public_var.line_num += 1
 

@@ -165,8 +165,8 @@ def do_jl(label:str,var_name1:str,var_name2:str,else_label:str):
         else:
             return zbb_mark_dic[else_label]
 
-    except KeyError as e:
-        raise RuntimeError(f"{e} : Mark not found")
+    except KeyError:
+        raise RuntimeError(f"Mark not found")
     except TypeError as e:
         raise RuntimeError(f"{e} : Compare error")
 
@@ -178,8 +178,8 @@ def do_jg(label:str,var_name1:str,var_name2:str,else_label:str):
             return zbb_mark_dic[label]
         else:
             return zbb_mark_dic[else_label]
-    except KeyError as e:
-        raise RuntimeError(f"{e} : Mark not found")
+    except KeyError:
+        raise RuntimeError(f"Mark not found")
     except TypeError as e:
         raise RuntimeError(f"{e} : Compare error")
 
@@ -191,8 +191,8 @@ def do_jne(label:str,var_name1:str,var_name2:str,else_label:str):
             return zbb_mark_dic[label]
         else:
             return zbb_mark_dic[else_label]
-    except KeyError as e:
-        raise RuntimeError(f"{e} : Mark not found")
+    except KeyError:
+        raise RuntimeError(f"Mark not found")
     except TypeError as e:
         raise RuntimeError(f"{e} : Compare error")
 
