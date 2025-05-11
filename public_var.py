@@ -15,6 +15,11 @@ class Stack:
     def __len__(self):
         return len(self.main)
 
+    def __repr__(self):
+        return repr(self.main)
+
+def between(var,a, b):
+    return True if var.startswith(a) and var.endswith(b) else False
 
 zbb_var_dic = { "temp_shell_para" : '',
                 "temp_get" : '',

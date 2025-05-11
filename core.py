@@ -63,9 +63,7 @@ def run_a_line_of_zbb( a_line_of_zbb:str):
 
 
     zbb_do = zbb_keywords[ this_keyword ]
-    for_ret = zbb_do(*this_para)
-
-    return for_ret
+    return zbb_do(*this_para) # 返回的是行数
 
 
 def main(zbb_file_to_run):
@@ -124,9 +122,9 @@ def main(zbb_file_to_run):
             public_var.line_num += 1
 
         if dic_not_end != "" :
-            print(f"{Fore.RED}Dic not end:",Fore.RESET)
+            print(f"{Fore.RED}Dic not end{Fore.RESET}")
         if func_not_end != "" :
-            print(f"{Fore.RED}Func not end", Fore.RESET)
+            print(f"{Fore.RED}Func not end{Fore.RESET}")
 
         public_var.line_num = 0
 
@@ -139,15 +137,21 @@ def main(zbb_file_to_run):
             else:
                 break
 
-            if each_line_of_code == '' or each_line_of_code.startswith("//"):
+            if each_line_of_code == '' or each_line_of_code.replace(" ","").startswith("//"):
                 public_var.line_num += 1
                 continue
+
             try:
                 change_line_num = run_a_line_of_zbb(each_line_of_code)
                 public_var.line_num = change_line_num if change_line_num is not None else public_var.line_num
             except (RuntimeError, TypeError, KeyError) as e:
                 print(
-                    f"{Fore.RED}{e}\nline {public_var.line_num + 1}: {code_text_to_list[public_var.line_num]} \n {" " * (6 + len(str(public_var.line_num + 1))) + '^' * len(code_text_to_list[public_var.line_num])}\n{Fore.RESET}"
+                    f"{Fore.RED}{e}"
+                    f"line {public_var.line_num + 1}:"
+                    f"{code_text_to_list[public_var.line_num]} \n "
+                    f"{" " * (6 + len(str(public_var.line_num + 1))) }"
+                    f"{'^' * len(code_text_to_list[public_var.line_num])}\n"
+                    f"{Fore.RESET}"
                 )
                 break
 
