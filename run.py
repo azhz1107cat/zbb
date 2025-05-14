@@ -3,12 +3,14 @@ import markdown
 
 if __name__ == "__main__":
     while True:
+        is_fist_parse_the_file_in = True
         os.system('cls')
-        if len(sys.argv) > 1: # 读取系统文件输入
+        if len(sys.argv) > 1 and is_fist_parse_the_file_in: # 读取系统文件输入
             zbb_file_to_run = sys.argv[1]
             main(zbb_file_to_run)
             input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
             if input_to_exit == "":
+                is_fist_parse_the_file_in = False
                 continue
             else:
                 break
