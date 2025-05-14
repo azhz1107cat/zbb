@@ -1,4 +1,5 @@
 from core import *
+import markdown
 
 if __name__ == "__main__":
     while True:
@@ -21,13 +22,13 @@ if __name__ == "__main__":
              )
         user_input = input(">>>")
         if user_input == "help":
-            with open("documents/zbb_help.md", 'r', encoding='utf-8') as f:
-                print(f.read())
-                input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
-                if input_to_exit == "":
-                    continue
-                else:
-                    break
+            help_doc = open("documents/zbb_help.md", 'r', encoding='utf-8').read()
+            print(help_doc)
+            input_to_exit = input(f"{Fore.GREEN}Type ENTER to continue{Fore.RESET}")
+            if input_to_exit == "":
+                continue
+            else:
+                break
 
         elif user_input == "out":
             break
