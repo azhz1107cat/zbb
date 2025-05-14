@@ -2,8 +2,8 @@ from core import *
 import markdown
 
 if __name__ == "__main__":
+    is_fist_parse_the_file_in = True
     while True:
-        is_fist_parse_the_file_in = True
         os.system('cls')
         if len(sys.argv) > 1 and is_fist_parse_the_file_in: # 读取系统文件输入
             zbb_file_to_run = sys.argv[1]
