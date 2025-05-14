@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43f23fa9-c6b0-4abb-ae48-d4609dc2ea68" name="更改" comment="现已基本实现所有功能">
-      <change afterPath="$PROJECT_DIR$/test/sort.zbb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +175,7 @@
       <workItem from="1746430522816" duration="1359000" />
       <workItem from="1746447203345" duration="1297000" />
       <workItem from="1746802221488" duration="1499000" />
-      <workItem from="1746953672896" duration="3584000" />
+      <workItem from="1746953672896" duration="4099000" />
     </task>
     <task id="LOCAL-00001" summary="添加了一些功能">
       <option name="closed" value="true" />
@@ -411,7 +409,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746956508893</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="现已基本实现所有功能">
+      <option name="closed" value="true" />
+      <created>1746957682551</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1746957682551</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

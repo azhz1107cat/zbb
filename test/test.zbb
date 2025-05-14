@@ -12,7 +12,6 @@ end output_cn
 call print_hello
 call output_cn
 
-
 // 循环实例
 func do_11_cycle
     set i
